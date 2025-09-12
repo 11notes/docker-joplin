@@ -1,5 +1,6 @@
 {
   "image": "11notes/joplin",
+  "platform":"amd64,arm64",
   "name": "joplin",
   "root": "/joplin",
   "semver": {
