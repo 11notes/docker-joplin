@@ -1,0 +1,24 @@
+{
+  "image": "11notes/joplin",
+  "name": "joplin",
+  "root": "/joplin",
+  "semver": {
+    "version": "3.4.12"
+  },
+  "readme": {
+    "description": "Run joplin smaller, lightweight and more secure",
+    "introduction": "[Joplin](https://github.com/laurent22/joplin) (created by [laurent22](https://github.com/laurent22)) is a free, open source note taking and to-do application, which can handle a large number of notes organised into notebooks. The notes are searchable, can be copied, tagged and modified either from the applications directly or from your own text editor. The notes are in Markdown format.",
+    "parent": {
+      "image": "node:lts-stable"
+    },
+    "built": {
+      "joplin": "https://github.com/laurent22/joplin"
+    },
+    "comparison": {
+      "images": ["joplin/server"]
+    }
+  },
+  "grype":{
+    "fail":false
+  }
+}
