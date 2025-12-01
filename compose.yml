@@ -11,7 +11,7 @@ services:
   postgres:
     # for more information about this image checkout:
     # https://github.com/11notes/docker-postgres
-    image: "11notes/postgres:16"
+    image: "11notes/postgres:18"
     <<: *lockdown
     environment:
       TZ: "Europe/Zurich"
@@ -28,7 +28,7 @@ services:
       - "/postgres/log:uid=1000,gid=1000"
     restart: "always"
 
-  joplin:
+  server:
     depends_on:
       postgres:
         condition: "service_healthy"
@@ -76,8 +76,8 @@ services:
             </md:SPSSODescriptor>
         </md:EntityDescriptor>
     volumes:
-      - "joplin.etc:/joplin/etc"
-      - "joplin.var:/joplin/var"
+      - "server.etc:/joplin/etc"
+      - "server.var:/joplin/var"
     tmpfs:
       # required for read-only
       - "/tmp:uid=1000,gid=1000"
@@ -89,8 +89,8 @@ services:
     restart: "always"
 
 volumes:
-  joplin.etc:
-  joplin.var:
+  server.etc:
+  server.var:
   postgres.etc:
   postgres.var:
   postgres.backup:
