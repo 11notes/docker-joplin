@@ -26,6 +26,9 @@
   ARG APP_VERSION \
       BUILD_SRC \
       BUILD_ROOT
+
+  ENV NODE_OPTIONS="--max-old-space-size=61440"
+
   RUN set -ex; \
     apk --update --no-cache add \
       git \
