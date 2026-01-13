@@ -1,10 +1,10 @@
 {
   "image": "11notes/joplin",
-  "platform":"amd64,arm64",
+  "platform": "amd64,arm64",
   "name": "joplin",
   "root": "/joplin",
   "semver": {
-    "version": "3.4.12"
+    "version": "3.5.11"
   },
   "readme": {
     "description": "Run joplin smaller, lightweight and more secure",
@@ -16,10 +16,12 @@
       "joplin": "https://github.com/laurent22/joplin"
     },
     "comparison": {
-      "images": ["joplin/server"]
+      "images": [
+        "joplin/server"
+      ]
     }
   },
-  "grype":{
-    "fail":false
+  "grype": {
+    "fail": false
   }
 }
