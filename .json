@@ -4,7 +4,7 @@
   "name": "joplin",
   "root": "/joplin",
   "semver": {
-    "version": "3.5.12"
+    "version": "3.5.13"
   },
   "readme": {
     "description": "Run joplin smaller, lightweight and more secure",
