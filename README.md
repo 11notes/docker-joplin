@@ -1,7 +1,7 @@
-![banner](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/banner/README.png)
+![banner](https://raw.githubusercontent.com/11notes/static/refs/heads/master/img/banner/README.png)
 
 # JOPLIN
-![size](https://img.shields.io/badge/image_size-1GB-green?color=%2338ad2d)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)![pulls](https://img.shields.io/docker/pulls/11notes/joplin?color=2b75d6)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)[<img src="https://img.shields.io/github/issues/11notes/docker-joplin?color=7842f5">](https://github.com/11notes/docker-joplin/issues)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)![swiss_made](https://img.shields.io/badge/Swiss_Made-FFFFFF?labelColor=FF0000&logo=data:image/svg%2bxml;base64,PHN2ZyB2ZXJzaW9uPSIxIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0idHJhbnNwYXJlbnQiLz4KICA8cGF0aCBkPSJtMTMgNmg2djdoN3Y2aC03djdoLTZ2LTdoLTd2LTZoN3oiIGZpbGw9IiNmZmYiLz4KPC9zdmc+)
+![size](https://img.shields.io/badge/image_size-1GB-green?color=%2338ad2d)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/master/img/markdown/transparent5x2px.png)![pulls](https://img.shields.io/docker/pulls/11notes/joplin?color=2b75d6)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/master/img/markdown/transparent5x2px.png)[<img src="https://img.shields.io/github/issues/11notes/docker-joplin?color=7842f5">](https://github.com/11notes/docker-joplin/issues)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/master/img/markdown/transparent5x2px.png)![swiss_made](https://img.shields.io/badge/Swiss_Made-FFFFFF?labelColor=FF0000&logo=data:image/svg%2bxml;base64,PHN2ZyB2ZXJzaW9uPSIxIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0idHJhbnNwYXJlbnQiLz4KICA8cGF0aCBkPSJtMTMgNmg2djdoN3Y2aC03djdoLTZ2LTdoLTd2LTZoN3oiIGZpbGw9IiNmZmYiLz4KPC9zdmc+)
 
 Run joplin smaller, lightweight and more secure
 
@@ -52,26 +52,6 @@ x-lockdown: &lockdown
     - "no-new-privileges=true"
 
 services:
-  postgres:
-    # for more information about this image checkout:
-    # https://github.com/11notes/docker-postgres
-    image: "11notes/postgres:18"
-    <<: *lockdown
-    environment:
-      TZ: "Europe/Zurich"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_BACKUP_SCHEDULE: "0 3 * * *"
-    networks:
-      backend:
-    volumes:
-      - "postgres.etc:/postgres/etc"
-      - "postgres.var:/postgres/var"
-      - "postgres.backup:/postgres/backup"
-    tmpfs:
-      - "/postgres/run:uid=1000,gid=1000"
-      - "/postgres/log:uid=1000,gid=1000"
-    restart: "always"
-
   server:
     depends_on:
       postgres:
@@ -123,13 +103,32 @@ services:
       - "server.etc:/joplin/etc"
       - "server.var:/joplin/var"
     tmpfs:
-      # required for read-only
       - "/tmp:uid=1000,gid=1000"
     ports:
       - "3000:22300/tcp"
     networks:
       frontend:
       backend:
+    restart: "always"
+
+  postgres:
+    # for more information about this image checkout:
+    # https://github.com/11notes/docker-postgres
+    image: "11notes/postgres:18"
+    <<: *lockdown
+    environment:
+      TZ: "Europe/Zurich"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_BACKUP_SCHEDULE: "0 3 * * *"
+    networks:
+      backend:
+    volumes:
+      - "postgres.etc:/postgres/etc"
+      - "postgres.var:/postgres/var"
+      - "postgres.backup:/postgres/backup"
+    tmpfs:
+      - "/postgres/run:uid=1000,gid=1000"
+      - "/postgres/log:uid=1000,gid=1000"
     restart: "always"
 
 volumes:
@@ -187,6 +186,8 @@ For Keycloak simply create the required **User Property** mappers, for all other
 These are the main tags for the image. There is also a tag for each commit and its shorthand sha256 value.
 
 * [3.5.13](https://hub.docker.com/r/11notes/joplin/tags?name=3.5.13)
+* [3.5.13-unraid](https://hub.docker.com/r/11notes/joplin/tags?name=3.5.13-unraid)
+* [3.5.13-nobody](https://hub.docker.com/r/11notes/joplin/tags?name=3.5.13-nobody)
 
 ### There is no latest tag, what am I supposed to do about updates?
 It is my opinion that the ```:latest``` tag is a bad habbit and should not be used at all. Many developers introduce **breaking changes** in new releases. This would messed up everything for people who use ```:latest```. If you don’t want to change the tag to the latest [semver](https://semver.org/), simply use the short versions of [semver](https://semver.org/). Instead of using ```:3.5.13``` you can use ```:3``` or ```:3.5```. Since on each new version these tags are updated to the latest version of the software, using them is identical to using ```:latest``` but at least fixed to a major or minor version. Which in theory should not introduce breaking changes.
@@ -199,6 +200,12 @@ docker pull 11notes/joplin:3.5.13
 docker pull ghcr.io/11notes/joplin:3.5.13
 docker pull quay.io/11notes/joplin:3.5.13
 ```
+
+# UNRAID VERSION 🟠
+This image supports unraid by default. Simply add **-unraid** to any tag and the image will run as 99:100 instead of 1000:1000.
+
+# NOBODY VERSION 👻
+This image supports nobody by default. Simply add **-nobody** to any tag and the image will run as 65534:65534 instead of 1000:1000.
 
 # SOURCE 💾
 * [11notes/joplin](https://github.com/11notes/docker-joplin)
@@ -218,4 +225,4 @@ docker pull quay.io/11notes/joplin:3.5.13
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-joplin/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-joplin/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-joplin/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 26.02.2026, 07:10:02 (CET)*
+*created 23.03.2026, 08:49:39 (CET)*
