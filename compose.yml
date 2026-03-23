@@ -8,26 +8,6 @@ x-lockdown: &lockdown
     - "no-new-privileges=true"
 
 services:
-  postgres:
-    # for more information about this image checkout:
-    # https://github.com/11notes/docker-postgres
-    image: "11notes/postgres:18"
-    <<: *lockdown
-    environment:
-      TZ: "Europe/Zurich"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_BACKUP_SCHEDULE: "0 3 * * *"
-    networks:
-      backend:
-    volumes:
-      - "postgres.etc:/postgres/etc"
-      - "postgres.var:/postgres/var"
-      - "postgres.backup:/postgres/backup"
-    tmpfs:
-      - "/postgres/run:uid=1000,gid=1000"
-      - "/postgres/log:uid=1000,gid=1000"
-    restart: "always"
-
   server:
     depends_on:
       postgres:
@@ -79,13 +59,32 @@ services:
       - "server.etc:/joplin/etc"
       - "server.var:/joplin/var"
     tmpfs:
-      # required for read-only
       - "/tmp:uid=1000,gid=1000"
     ports:
       - "3000:22300/tcp"
     networks:
       frontend:
       backend:
+    restart: "always"
+
+  postgres:
+    # for more information about this image checkout:
+    # https://github.com/11notes/docker-postgres
+    image: "11notes/postgres:18"
+    <<: *lockdown
+    environment:
+      TZ: "Europe/Zurich"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_BACKUP_SCHEDULE: "0 3 * * *"
+    networks:
+      backend:
+    volumes:
+      - "postgres.etc:/postgres/etc"
+      - "postgres.var:/postgres/var"
+      - "postgres.backup:/postgres/backup"
+    tmpfs:
+      - "/postgres/run:uid=1000,gid=1000"
+      - "/postgres/log:uid=1000,gid=1000"
     restart: "always"
 
 volumes:
