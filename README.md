@@ -32,7 +32,7 @@ Below you find a comparison between this image and the most used or original one
 | **image** | **size on disk** | **init default as** | **[distroless](https://github.com/11notes/RTFM/blob/main/linux/container/image/distroless.md)** | supported architectures
 | ---: | ---: | :---: | :---: | :---: |
 | 11notes/joplin | 2GB | 1000:1000 | ❌ | amd64, arm64 |
-| joplin/server | 2GB | 1001:1001 | ❌ | amd64, arm64 |
+| joplin/server | 607MB | 1001:1001 | ❌ | amd64, arm64 |
 
 **Why is this image not distroless?** Because the developers of this app need to dynamically load modules into node and that only works with dynamic loading enabled, which is only possible in a dynamic linked binary.
 
@@ -57,7 +57,7 @@ services:
       postgres:
         condition: "service_healthy"
         restart: true
-    image: "11notes/joplin:3.7.16"
+    image: "11notes/joplin:3.7.18"
     <<: *lockdown
     environment:
       TZ: "Europe/Zurich"
@@ -185,20 +185,20 @@ For Keycloak simply create the required **User Property** mappers, for all other
 # MAIN TAGS 🏷️
 These are the main tags for the image. There is also a tag for each commit and its shorthand sha256 value.
 
-* [3.7.16](https://hub.docker.com/r/11notes/joplin/tags?name=3.7.16)
-* [3.7.16-unraid](https://hub.docker.com/r/11notes/joplin/tags?name=3.7.16-unraid)
-* [3.7.16-nobody](https://hub.docker.com/r/11notes/joplin/tags?name=3.7.16-nobody)
+* [3.7.18](https://hub.docker.com/r/11notes/joplin/tags?name=3.7.18)
+* [3.7.18-unraid](https://hub.docker.com/r/11notes/joplin/tags?name=3.7.18-unraid)
+* [3.7.18-nobody](https://hub.docker.com/r/11notes/joplin/tags?name=3.7.18-nobody)
 
 ### There is no latest tag, what am I supposed to do about updates?
-It is my opinion that the ```:latest``` tag is a bad habbit and should not be used at all. Many developers introduce **breaking changes** in new releases. This would messed up everything for people who use ```:latest```. If you don’t want to change the tag to the latest [semver](https://semver.org/), simply use the short versions of [semver](https://semver.org/). Instead of using ```:3.7.16``` you can use ```:3``` or ```:3.7```. Since on each new version these tags are updated to the latest version of the software, using them is identical to using ```:latest``` but at least fixed to a major or minor version. Which in theory should not introduce breaking changes.
+It is my opinion that the ```:latest``` tag is a bad habbit and should not be used at all. Many developers introduce **breaking changes** in new releases. This would messed up everything for people who use ```:latest```. If you don’t want to change the tag to the latest [semver](https://semver.org/), simply use the short versions of [semver](https://semver.org/). Instead of using ```:3.7.18``` you can use ```:3``` or ```:3.7```. Since on each new version these tags are updated to the latest version of the software, using them is identical to using ```:latest``` but at least fixed to a major or minor version. Which in theory should not introduce breaking changes.
 
 If you still insist on having the bleeding edge release of this app, simply use the ```:rolling``` tag, but be warned! You will get the latest version of the app instantly, regardless of breaking changes or security issues or what so ever. You do this at your own risk!
 
 # REGISTRIES ☁️
 ```
-docker pull 11notes/joplin:3.7.16
-docker pull ghcr.io/11notes/joplin:3.7.16
-docker pull quay.io/11notes/joplin:3.7.16
+docker pull 11notes/joplin:3.7.18
+docker pull ghcr.io/11notes/joplin:3.7.18
+docker pull quay.io/11notes/joplin:3.7.18
 ```
 
 # UNRAID VERSION 🟠
@@ -225,4 +225,4 @@ This image supports nobody by default. Simply add **-nobody** to any tag and the
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-joplin/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-joplin/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-joplin/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 07.09.2026, 06:21:59 (CET)*
+*created 15.09.2026, 06:16:42 (CET)*
