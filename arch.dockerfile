@@ -46,7 +46,7 @@
     cd ${BUILD_ROOT}/packages; \
     for PACKAGE in *; do \
       case ${PACKAGE} in \
-        turndown|turndown-plugin-gfm|fork-htmlparser2|server|fork.sax|fork-uslug|htmlpack|renderer|tools|utils|lib);; \
+        turndown|turndown-plugin-gfm|fork-htmlparser2|server|fork-sax|fork-uslug|htmlpack|renderer|tools|utils|lib);; \
         *) rm -rf ${BUILD_ROOT}/packages/${PACKAGE};; \
       esac; \
     done;
