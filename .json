@@ -4,7 +4,7 @@
   "name": "joplin",
   "root": "/joplin",
   "semver": {
-    "version": "3.7.18"
+    "version": "3.6.16"
   },
   "readme": {
     "description": "Run joplin smaller, lightweight and more secure",
@@ -23,5 +23,7 @@
   },
   "grype": {
     "fail": false
-  }
+  },
+  "unraid": true,
+  "nobody": true
 }
