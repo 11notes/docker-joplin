@@ -31,8 +31,8 @@ Below you find a comparison between this image and the most used or original one
 
 | **image** | **size on disk** | **init default as** | **[distroless](https://github.com/11notes/RTFM/blob/main/linux/container/image/distroless.md)** | supported architectures
 | ---: | ---: | :---: | :---: | :---: |
+| joplin/server | 1e | 1001:1001 | ❌ | amd64, arm64 |
 | 11notes/joplin | 4GB | 1000:1000 | ❌ | amd64, arm64 |
-| joplin/server | 948MB | 1001:1001 | ❌ | amd64, arm64 |
 
 **Why is this image not distroless?** Because the developers of this app need to dynamically load modules into node and that only works with dynamic loading enabled, which is only possible in a dynamic linked binary.
 
@@ -217,4 +217,4 @@ docker pull quay.io/11notes/joplin:3.7.22
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-joplin/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-joplin/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-joplin/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 09.11.2026, 16:30:08 (CET)*
+*created 17.11.2026, 11:32:50 (CET)*
