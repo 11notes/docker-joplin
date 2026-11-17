@@ -13,7 +13,6 @@
   FROM 11notes/distroless AS distroless
   FROM 11notes/distroless:tini AS distroless-tini
   FROM 11notes/distroless:localhealth AS distroless-localhealth
-  FROM 11notes/distroless:ds AS distroless-ds
 
 
 # ╔═════════════════════════════════════════════════════╗
@@ -22,7 +21,6 @@
 # :: JOPLIN
   FROM node:lts-alpine AS build
   COPY --from=util-bin / /
-  COPY --from=distroless-ds / /
   ARG APP_VERSION \
       BUILD_SRC \
       BUILD_ROOT
@@ -71,6 +69,21 @@
     cd ${BUILD_ROOT}; \
     BUILD_SEQUENCIAL=1 \
       yarn install --refresh-lockfile --inline-builds;
+
+  RUN set -ex; \
+    cd ${BUILD_ROOT}/packages/server; \
+    yarn build;
+
+  RUN set -ex; \
+    cd ${BUILD_ROOT}; \
+    yarn workspaces focus @joplin/server --production;
+
+  RUN set -ex; \
+    cd ${BUILD_ROOT}; \
+    rm -rf packages/tools; \
+    yarn cache clean --all; \
+    find packages -type d \( -name test -o -name tests -o -name __tests__ \) -prune -exec rm -rf {} +; \
+    find packages -type f \( -name "*.map" -o -name "*.md" \) -delete;
 
 # :: FILE-SYSTEM
   FROM alpine AS file-system
