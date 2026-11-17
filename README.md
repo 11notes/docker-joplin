@@ -217,4 +217,4 @@ docker pull quay.io/11notes/joplin:3.7.22
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-joplin/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-joplin/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-joplin/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 17.11.2026, 22:33:48 (CET)*
+*created 17.11.2026, 22:41:31 (CET)*
